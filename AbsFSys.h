@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string.h>
 class AbsFSys {
 protected:
 
@@ -15,7 +16,42 @@ protected:
 	return sum;
 }
 
-	bool ChtenieMBR(wchar_t* fileName, byte *dataBuffer){
+
+
+
+public:
+	unsigned long long razmer;
+	unsigned long long kolvoClast;
+	int razmerClast;
+	AnsiString name;
+
+	bool ReedCluster(int nomer, byte *outBuffer){
+
+	LARGE_INTEGER sectorOffset;
+	sectorOffset.QuadPart=razmerClast*nomer;
+
+	unsigned long currentPosition = SetFilePointer(fileHander,sectorOffset.LowPart,&sectorOffset.HighPart ,FILE_BEGIN);
+
+	 if(currentPosition != sectorOffset.LowPart)  {
+	  ShowMessage (L"Ошибка установки курсора.");
+	  CloseHandle (fileHander);
+	   return false;
+	 }
+
+	 DWORD bytesToRead=razmerClast;
+	 DWORD bytesRead;
+	 bool readResult = ReadFile(fileHander,outBuffer,bytesToRead,&bytesRead,NULL);
+
+	 if(readResult == false || bytesRead != bytesToRead){
+		ShowMessage (L"Ошибка чтения.");
+	   CloseHandle (fileHander);
+	   return false;
+	 }
+	 return true;
+	}
+
+
+    bool ChtenieMBR(wchar_t* fileName, byte *dataBuffer){
 
 	fileHander=CreateFileW(fileName,
 	GENERIC_READ,
@@ -55,36 +91,4 @@ protected:
 
 	   return true;
 	}
-
-
-public:
-	unsigned long long razmer;
-	unsigned long long kolvoClast;
-	int razmerClast;
-
-	bool ReedCluster(int nomer, byte *outBuffer){
-
-	LARGE_INTEGER sectorOffset;
-	sectorOffset.QuadPart=razmerClast*nomer;
-
-	unsigned long currentPosition = SetFilePointer(fileHander,sectorOffset.LowPart,&sectorOffset.HighPart ,FILE_BEGIN);
-
-	 if(currentPosition != sectorOffset.LowPart)  {
-	  ShowMessage (L"Ошибка установки курсора.");
-	  CloseHandle (fileHander);
-	   return false;
-	 }
-
-	 DWORD bytesToRead=razmerClast;
-	 DWORD bytesRead;
-	 bool readResult = ReadFile(fileHander,outBuffer,bytesToRead,&bytesRead,NULL);
-
-	 if(readResult == false || bytesRead != bytesToRead){
-		ShowMessage (L"Ошибка чтения.");
-	   CloseHandle (fileHander);
-	   return false;
-	 }
-	 return true;
-	}
-
 };

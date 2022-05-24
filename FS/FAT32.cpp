@@ -1,5 +1,5 @@
 #include <iostream>
-#include<FAT32.h>
+#include "FAT32.h"
 
 class FAT32 : public AbsFSys
 {
@@ -22,6 +22,7 @@ public:
 	razmerClast=BaitSect*SectKlast;
 	kolvoClast=(KolvoSect-Rezerv-kolvoCopyFat*razmerFat)/SectKlast;
 	razmer=kolvoClast*razmerClast;
+    name="FAT32";
 
 	delete[] dataBuffer;
 	}

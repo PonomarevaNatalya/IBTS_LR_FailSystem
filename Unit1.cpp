@@ -6,8 +6,7 @@
 #include <sstream>
 #include <iterator>
 #include "Unit1.h"
-#include "FAT32.cpp"
-#include "exFAT.cpp"
+#include "Factory.cpp"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -64,7 +63,7 @@ long nomer;
 				ss << std::hex << int(item);
 				ss << " ";
 			}
-			s2 = ss.str();
+		   //	s2 = ss.str();
 			Label2->Caption += s2;
 			Label2->Caption += "\n";
 			s1="";
@@ -76,9 +75,16 @@ long nomer;
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button3Click(TObject *Sender)
 {
-       wchar_t *fileName = L"\\\\.\\K:";
-	  filesys = exFAT(fileName);
-	  Label1->Caption=L"Размер кластера: ";
+	  UnicodeString  str1 = "\\\\.\\";
+	  UnicodeString  str2 = Edit2->Text;
+	  UnicodeString  str4 = str1+str2+":";
+
+wchar_t *fileName = str4.t_str();
+	  Factory factory;
+	  filesys = factory.CreateFS(fileName);
+	  Label1->Caption=L"Название ФС: ";
+	  Label1->Caption+=filesys.name;
+	  Label1->Caption+=L"\nРазмер кластера: ";
 	  Label1->Caption+=filesys.razmerClast;
 	  Label1->Caption+=L"\nКоличество кластеров: ";
 	  Label1->Caption+=filesys.kolvoClast;

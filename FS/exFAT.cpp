@@ -1,5 +1,5 @@
 #include <iostream>
-#include<exFAT.h>
+#include "exFAT.h"
 
 class exFAT : public AbsFSys
 {
@@ -16,9 +16,10 @@ public:
 	int razm2Sec=Dec10(pexFAT_MBR->razm2Sec,sizeof(pexFAT_MBR->razm2Sec));
 	int  clastMnoz=Dec10(pexFAT_MBR->clastMnoz,sizeof(pexFAT_MBR->clastMnoz));
 
-	 kolvoClast=Kolvoclast;
+	kolvoClast=Kolvoclast;
 	razmerClast=std::pow(2,razm2Sec)*std::pow(2,clastMnoz);
 	razmer=razmerClast*kolvoClast;
+	name="exFAT";
 
 	delete[] dataBuffer;
 	}
