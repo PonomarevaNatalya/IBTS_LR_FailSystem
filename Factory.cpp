@@ -1,15 +1,8 @@
 #include <iostream>
 #include "Factory.h"
 
-
-class Factory
-{
-public:
-	Factory()
-{
-
-}
-	AbsFSys CreateFS(wchar_t* path)
+	Factory::Factory(){}
+	AbsFSys Factory::CreateFS(wchar_t* path)
 {
 	AbsFSys File;
 	int fs=0;
@@ -41,8 +34,8 @@ public:
 	return  File;
 }
 
-private:
-int DetectionFS(byte *dataBuffer)
+
+int Factory::DetectionFS(byte *dataBuffer)
 {
 	  byte exfat[5]={69, 88, 70, 65, 84};
 	  byte fat32[8]={77, 83, 68, 79, 83, 53, 46, 48};
@@ -72,4 +65,3 @@ int DetectionFS(byte *dataBuffer)
 		return 0;
 
 }
-};

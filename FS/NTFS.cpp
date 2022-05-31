@@ -1,9 +1,8 @@
 #include <iostream>
 #include "NTFS.h"
-class NTFS : public AbsFSys
-{
-public:
-	NTFS(wchar_t* path)
+
+
+	NTFS::NTFS(wchar_t* path)
 	{
 	byte *dataBuffer = new byte[512];
 
@@ -23,5 +22,3 @@ public:
 	delete[] dataBuffer;
 	}
 
-
-};

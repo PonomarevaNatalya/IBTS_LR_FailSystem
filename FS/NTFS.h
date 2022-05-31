@@ -2,6 +2,13 @@
 #include <tchar.h>
 #include <windows.h>
 #include<AbsFSys.h>
+ class NTFS : public AbsFSys
+{
+public:
+	NTFS(wchar_t* path);
+
+};
+
 #pragma pack(push,1)
 
 typedef struct

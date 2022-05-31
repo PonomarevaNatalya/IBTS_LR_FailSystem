@@ -1,10 +1,7 @@
 #include <iostream>
 #include "FAT32.h"
 
-class FAT32 : public AbsFSys
-{
-public:
-	FAT32(wchar_t* path)
+FAT32::FAT32(wchar_t* path)
 	{
 	byte *dataBuffer = new byte[512];
 
@@ -26,6 +23,3 @@ public:
 
 	delete[] dataBuffer;
 	}
-
-	
-};

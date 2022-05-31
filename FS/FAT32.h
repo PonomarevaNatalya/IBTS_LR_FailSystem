@@ -2,6 +2,12 @@
 #include <tchar.h>
 #include <windows.h>
 #include<AbsFSys.h>
+class FAT32 : public AbsFSys
+{
+public:
+	FAT32(wchar_t* path);
+};
+
 #pragma pack(push,1)
 
 typedef struct

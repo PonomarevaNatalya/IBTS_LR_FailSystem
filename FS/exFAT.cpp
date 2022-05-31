@@ -1,10 +1,7 @@
 #include <iostream>
 #include "exFAT.h"
 
-class exFAT : public AbsFSys
-{
-public:
-	exFAT(wchar_t* path)
+   exFAT::exFAT(wchar_t* path)
 	{
 	byte *dataBuffer = new byte[512];
 
@@ -23,6 +20,3 @@ public:
 
 	delete[] dataBuffer;
 	}
-
-	
-};
